@@ -1,8 +1,11 @@
+using JetBrains.Annotations;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor.SearchService;
 using UnityEngine;
 
-public class ButterflySwarm : MonoBehaviour
+public class ButterflyBoids : MonoBehaviour
 {
     [Header("Settings")]
     public GameObject butterflyPrefab; // Assign your butterfly 3D model here
@@ -13,6 +16,8 @@ public class ButterflySwarm : MonoBehaviour
 
     [Header("Target")]
     public Transform centerTarget; // Assign the "CenterEyeAnchor" (Player Head)
+    public Transform r_handMeshNode;
+    public Transform l_handMeshNode;
 
     private List<Transform> butterflies = new List<Transform>();
     private List<Vector3> randomOffsets = new List<Vector3>();
@@ -20,6 +25,7 @@ public class ButterflySwarm : MonoBehaviour
 
     void Start()
     {
+
         // 1. Spawn the butterflies
         for (int i = 0; i < butterflyCount; i++)
         {
@@ -28,7 +34,7 @@ public class ButterflySwarm : MonoBehaviour
             b.transform.parent = this.transform; // Keep hierarchy clean
             butterflies.Add(b.transform);
 
-            butterflyPrefab.GetComponent<Animator>().SetBool("Scene",true);
+            butterflyPrefab.GetComponent<Animator>().SetBool("Scene", true);
             // Give each butterfly a unique random offset so they don't move identically
             randomOffsets.Add(Random.insideUnitSphere);
         }
@@ -38,39 +44,54 @@ public class ButterflySwarm : MonoBehaviour
     {
         if (centerTarget == null) return;
 
-        // 2. Rotate the entire swarm container around the player
+        MoveButterflyToHands();
+
+        // 1. Rotate the entire swarm container around the player (Orbit)
+        // We do this first so the parent moves, carrying the children
         if (!isScattering)
         {
             transform.position = centerTarget.position;
             transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
         }
 
-        // 3. Update individual butterfly movements
+        // 2. Update individual butterfly movements
         for (int i = 0; i < butterflies.Count; i++)
         {
             Transform b = butterflies[i];
 
+            // Store the position BEFORE we move it this frame
+            Vector3 previousPosition = b.position;
+
+            // --- Calculate New Position ---
             if (isScattering)
             {
-                // Move away from the center
-                Vector3 direction = (b.position - centerTarget.position).normalized;
-                b.position += direction * scatterSpeed * Time.deltaTime;
-                b.LookAt(b.position + direction); // Face away
+                // Calculate move away from center
+                Vector3 directionToScatter = (b.position - centerTarget.position).normalized;
+                b.position += directionToScatter * scatterSpeed * Time.deltaTime;
             }
             else
             {
-                // Gentle floating noise
+                // Calculate local noise movement
                 Vector3 noise = new Vector3(
                     Mathf.Sin(Time.time + randomOffsets[i].x) * 0.5f,
                     Mathf.Cos(Time.time + randomOffsets[i].y) * 0.5f,
                     Mathf.Sin(Time.time + randomOffsets[i].z) * 0.5f
                 );
 
-                // Keep them relative to the swarm center
+                // Apply position relative to the rotating parent
                 b.localPosition = (randomOffsets[i] * swarmRadius) + noise;
+            }
 
-                // Make them face the direction of the swarm rotation
-                b.LookAt(b.position + transform.forward);
+            // --- Calculate Rotation ---
+            // Determine the vector between where we were and where we are now
+            Vector3 moveDirection = b.position - previousPosition;
+
+            // Only rotate if we actually moved (to avoid errors when standing still)
+            if (moveDirection.sqrMagnitude > 0.0001f)
+            {
+                // Smoothly rotate towards the movement direction
+                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                b.rotation = Quaternion.Slerp(b.rotation, targetRotation, Time.deltaTime * 10f);
             }
         }
     }
@@ -81,4 +102,27 @@ public class ButterflySwarm : MonoBehaviour
         isScattering = !isScattering; // Toggle state
         Debug.Log("Butterflies Scattering: " + isScattering);
     }
+
+
+    void MoveButterflyToHands()
+    {
+
+        GameObject butterfly = null;
+
+        if (Input.GetKeyDown(KeyCode.U)) 
+        {
+            butterfly = Instantiate(butterflyPrefab, new Vector3(0,0,0), Quaternion.identity);
+
+            Debug.Log("butterfly intstent" + butterfly);
+        }
+
+        if (butterfly != null) {
+
+            butterfly.transform.position = Vector3.Lerp(butterfly.transform.position, r_handMeshNode.transform.position, Time.deltaTime);
+        
+        }
+
+
+    }
+
 }
