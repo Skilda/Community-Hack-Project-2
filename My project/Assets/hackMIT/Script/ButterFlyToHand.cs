@@ -47,7 +47,7 @@ public class ButterFlyToHand : MonoBehaviour
         }
 
 
-        if ( !LefthandTracker.GetFingerIsPinching(OVRHand.HandFinger.Index) && LefthandTracker.GetFingerIsPinching(OVRHand.HandFinger.Middle))
+        if ( LefthandTracker.GetFingerIsPinching(OVRHand.HandFinger.Index))
         {
             //butterflyBoids.butterfliesList[1].transform.position = r_handMeshNode.position;
 
