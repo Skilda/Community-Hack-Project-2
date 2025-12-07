@@ -46,7 +46,7 @@ public class ButterFlyToHand : MonoBehaviour
 
     void Start()
     {
-        //targetButterfly = butterflyBoids.butterfliesAsset[1];
+        targetButterfly = butterflyBoids.butterfliesAsset[1];
     }
 
     void Update()
@@ -61,7 +61,6 @@ public class ButterFlyToHand : MonoBehaviour
         if (LefthandTracker.GetFingerIsPinching(OVRHand.HandFinger.Index))
         {
             
-
             StartAttraction();
         }
 
@@ -155,6 +154,7 @@ public class ButterFlyToHand : MonoBehaviour
         {
             isAudioFinish = true;
             audioplaying= false;
+            AudioSource_scene = null;
         }
 
     }
