@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using Oculus.Interaction.Samples;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -43,8 +44,16 @@ public class ButterFlyToHand : MonoBehaviour
 
         if (handTracker.GetFingerIsPinching(OVRHand.HandFinger.Index))
         {
-            butterflyBoids.butterfliesList[1].transform.position = r_handMeshNode.position;
+            //butterflyBoids.butterfliesList[1].transform.position = r_handMeshNode.position;
+
+            StartAttraction();
         }
+
+        if (isAttracting)
+        {
+            AttractButterfly();
+        }
+
     }
 
     // Called once when the pointing gesture is detected
