@@ -14,6 +14,8 @@ public class ButterflyBoids : MonoBehaviour
     public float rotationSpeed = 30f;
     public float scatterSpeed = 5f;
 
+    
+
     [Header("Target")]
     public Transform centerTarget; // Assign the "CenterEyeAnchor" (Player Head)
     public Transform r_handMeshNode;
@@ -34,7 +36,7 @@ public class ButterflyBoids : MonoBehaviour
             b.transform.parent = this.transform; // Keep hierarchy clean
             butterflies.Add(b.transform);
 
-           
+            b.GetComponent<Animator>().SetBool("PlayFly",true);
             // Give each butterfly a unique random offset so they don't move identically
             randomOffsets.Add(Random.insideUnitSphere);
         }
@@ -44,7 +46,7 @@ public class ButterflyBoids : MonoBehaviour
     {
         if (centerTarget == null) return;
 
-        MoveButterflyToHands();
+        
 
         // 1. Rotate the entire swarm container around the player (Orbit)
         // We do this first so the parent moves, carrying the children
@@ -101,28 +103,6 @@ public class ButterflyBoids : MonoBehaviour
     {
         isScattering = !isScattering; // Toggle state
         Debug.Log("Butterflies Scattering: " + isScattering);
-    }
-
-
-    void MoveButterflyToHands()
-    {
-
-        GameObject butterfly = null;
-
-        if (Input.GetKeyDown(KeyCode.U)) 
-        {
-            butterfly = Instantiate(butterflyPrefab, new Vector3(0,0,0), Quaternion.identity);
-
-            Debug.Log("butterfly intstent" + butterfly);
-        }
-
-        if (butterfly != null) {
-
-            butterfly.transform.position = Vector3.Lerp(butterfly.transform.position, r_handMeshNode.transform.position, Time.deltaTime);
-        
-        }
-
-
     }
 
 }
