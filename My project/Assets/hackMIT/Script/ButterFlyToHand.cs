@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Audio;
 
 
 public class ButterFlyToHand : MonoBehaviour
@@ -29,13 +30,22 @@ public class ButterFlyToHand : MonoBehaviour
     [Tooltip("Reference to the script that manages the pointing gesture detection.")]
     public OVRHand LefthandTracker;
 
+    [Header("Audio")]
+    public AudioSource AudioSource_scene;
+    public AudioClip selectedAudioClip;
+    public AudioClip[] AudioClipLibrary;
+
     // --- Private State Variables ---
     private bool isPointing = false;
     private bool isAttracting = false;
+    private bool isOnPlayerHand = false;
+    private bool isAudioFinish = false;
+    private bool isFinishedPlaying;
+    private bool wasPlaying;
 
     void Start()
     {
-        //targetButterfly = butterflyBoids.butterfliesList[1];
+        //targetButterfly = butterflyBoids.butterfliesAsset[1];
     }
 
     void Update()
@@ -49,7 +59,7 @@ public class ButterFlyToHand : MonoBehaviour
 
         if (LefthandTracker.GetFingerIsPinching(OVRHand.HandFinger.Index))
         {
-            //butterflyBoids.butterfliesList[1].transform.position = r_handMeshNode.position;
+            
 
             StartAttraction();
         }
@@ -57,6 +67,16 @@ public class ButterFlyToHand : MonoBehaviour
         if (isAttracting)
         {
             AttractButterfly();
+        }
+
+        if (isOnPlayerHand) 
+        { 
+            PlayAudio();
+        }
+
+        if (isFinishedPlaying) 
+        {
+            RemoveButterfly();
         }
 
     }
@@ -90,7 +110,46 @@ public class ButterFlyToHand : MonoBehaviour
             isAttracting = false;
             Debug.Log("Butterfly arrived at hand.");
             // Optional: Parent the butterfly to the hand joint when it arrives (to hold it)
-            // targetButterfly.transform.SetParent(handDestination);
+            targetButterfly.transform.SetParent(handDestination);
+            isOnPlayerHand = true;
         }
+    }
+
+    private void PlayAudio()
+    {
+        AudioSource_scene.clip = selectedAudioClip;
+
+        AudioSource_scene.Play();
+
+        if (wasPlaying && !AudioSource_scene.isPlaying)
+        {
+            // La lecture s'est arrêtée ! C'est le signal que le clip est terminé.
+            isFinishedPlaying = true;
+            wasPlaying = false; //Réinitialiser l'état de lecture
+
+            Debug.Log("AudioClip terminé ! isFinishedPlaying est maintenant VRAI.");
+
+            // Vous pouvez ajouter ici l'appel à une autre fonction si nécessaire
+            // CallFunctionOnFinish(); 
+        }
+        else if (AudioSource_scene.isPlaying)
+        {
+            // Si l'audio joue, on met à jour wasPlaying.
+            wasPlaying = true;
+            // On s'assure que le booléen est Faux pendant la lecture
+            isFinishedPlaying = false;
+        }
+
+        if (isFinishedPlaying)
+        {
+            isAudioFinish = true;
+        }
+
+    }
+
+    private void RemoveButterfly()
+    {
+        targetButterfly.SetActive(false);
+        targetButterfly.transform.position = Vector3.zero;
     }
 }

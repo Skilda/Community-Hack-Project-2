@@ -22,6 +22,7 @@ public class ButterflyBoids : MonoBehaviour
     public Transform l_handMeshNode;
 
     public  List<Transform> butterfliesList = new List<Transform>();
+    public List<GameObject> butterfliesAsset = new List<GameObject>();
     private List<Vector3> randomOffsets = new List<Vector3>();
     private bool isScattering = false;
 
@@ -35,6 +36,7 @@ public class ButterflyBoids : MonoBehaviour
             GameObject b = Instantiate(butterflyPrefab, transform.position + randomPos, Quaternion.identity);
             b.transform.parent = this.transform; // Keep hierarchy clean
             butterfliesList.Add(b.transform);
+            butterfliesAsset.Add(b);
 
             b.GetComponent<Animator>().SetBool("PlayFly",true);
             // Give each butterfly a unique random offset so they don't move identically
