@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Oculus.Interaction.Samples;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
@@ -22,7 +23,20 @@ public class ButterFlyToHand : MonoBehaviour
     void Update()
     {
 
-        butterflyBoids.butterfliesList[1].transform.position = r_handMeshNode.position;
+        if (Input.GetKeyDown(KeyCode.Space)) 
+        {
+           
 
+
+        }
+
+
+
+    }
+
+
+    public void butterflyToHand()
+    {
+        butterflyBoids.butterfliesList[1].transform.position = r_handMeshNode.position;
     }
 }
