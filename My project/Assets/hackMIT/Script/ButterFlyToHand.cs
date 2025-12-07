@@ -17,7 +17,7 @@ public class ButterFlyToHand : MonoBehaviour
     // Update is called once per frame
     [Header("Target & Speed")]
     [Tooltip("The butterfly object to be moved.")]
-    public Transform targetButterfly;
+    public GameObject targetButterfly;
 
     [Tooltip("The transform to move the butterfly towards (e.g., the palm or wrist joint).")]
     public Transform handDestination;
@@ -35,7 +35,7 @@ public class ButterFlyToHand : MonoBehaviour
 
     void Start()
     {
-        targetButterfly = butterflyBoids.butterfliesList[1];
+        //targetButterfly = butterflyBoids.butterfliesList[1];
     }
 
     void Update()
@@ -47,7 +47,7 @@ public class ButterFlyToHand : MonoBehaviour
         }
 
 
-        if ( LefthandTracker.GetFingerIsPinching(OVRHand.HandFinger.Index))
+        if (LefthandTracker.GetFingerIsPinching(OVRHand.HandFinger.Index))
         {
             //butterflyBoids.butterfliesList[1].transform.position = r_handMeshNode.position;
 
@@ -74,18 +74,18 @@ public class ButterFlyToHand : MonoBehaviour
     private void AttractButterfly()
     {
         // Smoothly move the butterfly towards the designated hand position
-        targetButterfly.position = Vector3.Lerp(
-            targetButterfly.position,
+        targetButterfly.transform.position = Vector3.Lerp(
+            targetButterfly.transform.position,
             handDestination.position,
             Time.deltaTime * lerpSpeed
         );
 
         // Optional: Rotate the butterfly to face the hand
-        Quaternion targetRotation = Quaternion.LookRotation(handDestination.position - targetButterfly.position);
-        targetButterfly.rotation = Quaternion.Slerp(targetButterfly.rotation, targetRotation, Time.deltaTime * lerpSpeed);
+        Quaternion targetRotation = Quaternion.LookRotation(handDestination.position - targetButterfly.transform.position);
+        targetButterfly.transform.rotation = Quaternion.Slerp(targetButterfly.transform.rotation, targetRotation, Time.deltaTime * lerpSpeed);
 
         // Check if the butterfly has arrived
-        if (Vector3.Distance(targetButterfly.position, handDestination.position) < 0.05f)
+        if (Vector3.Distance(targetButterfly.transform.position, handDestination.position) < 0.05f)
         {
             isAttracting = false;
             Debug.Log("Butterfly arrived at hand.");

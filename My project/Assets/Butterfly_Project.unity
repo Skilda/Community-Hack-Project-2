@@ -2422,6 +2422,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38251972cf517df4ba377f8434800316, type: 3}
+--- !u!1 &1068719320 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4883096864596923839, guid: 38251972cf517df4ba377f8434800316, type: 3}
+  m_PrefabInstance: {fileID: 1068719319}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1070430286
 GameObject:
   m_ObjectHideFlags: 0
@@ -3613,10 +3618,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   r_handMeshNode: {fileID: 1576597797}
   butterflyBoids: {fileID: 1792000893}
-  targetButterfly: {fileID: 493153475}
+  targetButterfly: {fileID: 1068719320}
   handDestination: {fileID: 1576597797}
   lerpSpeed: 5
-  handTracker: {fileID: 969393617}
+  LefthandTracker: {fileID: 969393617}
 --- !u!1 &1824396248
 GameObject:
   m_ObjectHideFlags: 0
