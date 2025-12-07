@@ -13,12 +13,6 @@ public class ButterFlyToHand : MonoBehaviour
 
     public ButterflyBoids butterflyBoids;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     [Header("Target & Speed")]
     [Tooltip("The butterfly object to be moved.")]
@@ -42,41 +36,14 @@ public class ButterFlyToHand : MonoBehaviour
     {
         if (handTracker == null || targetButterfly == null || handDestination == null)
         {
-            Debug.LogError("Required components (Hand Tracker, Butterfly, or Destination) are not assigned!");
+            Debug.LogError("Required components are not assigned!", this);
             return;
         }
 
-        // 1. Detect the Pointing Gesture
-        // We use GetFingerIsPinching() as a simple way to detect a focused gesture (like pointing).
-        // Alternatively, use an OVRHand.GetFingerIsPinching(OVRHand.HandFinger.Index) == false
-        // to detect the fully straight "pointing" gesture.
 
-        bool isIndexStraight = !handTracker.GetFingerIsPinching(OVRHand.HandFinger.Index);
-
-        // This is a simplified check: is the index finger straight AND are all other fingers pinched/curled?
-        // The Meta Interaction SDK often has better ways (using OVRGestureConfig).
-        // For this example, we'll use a basic check for pointing:
-        isPointing = isIndexStraight &&
-                     handTracker.GetFingerIsPinching(OVRHand.HandFinger.Middle) &&
-                     handTracker.GetFingerIsPinching(OVRHand.HandFinger.Ring) &&
-                     handTracker.GetFingerIsPinching(OVRHand.HandFinger.Pinky);
-
-        // 2. Start/Stop Attraction Logic
-        if (isPointing && !isAttracting)
+        if (handTracker.GetFingerIsPinching(OVRHand.HandFinger.Index))
         {
-            // Start the attraction process when pointing begins
-            StartAttraction();
-        }
-        else if (!isPointing && isAttracting)
-        {
-            // Stop attraction when pointing stops (optional, for continuous control)
-            isAttracting = false;
-        }
-
-        // 3. Movement (Lerp)
-        if (isAttracting)
-        {
-            AttractButterfly();
+            butterflyBoids.butterfliesList[1].transform.position = r_handMeshNode.position;
         }
     }
 
