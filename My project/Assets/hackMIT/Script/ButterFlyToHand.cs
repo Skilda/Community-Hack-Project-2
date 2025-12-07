@@ -117,9 +117,13 @@ public class ButterFlyToHand : MonoBehaviour
 
     private void PlayAudio()
     {
-        AudioSource_scene.clip = selectedAudioClip;
 
-        AudioSource_scene.Play();
+        if (!AudioSource_scene.isPlaying)
+        {
+            AudioSource_scene.clip = selectedAudioClip;
+
+            AudioSource_scene.Play();
+        }
 
         if (wasPlaying && !AudioSource_scene.isPlaying)
         {
