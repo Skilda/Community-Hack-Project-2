@@ -2,8 +2,8 @@ using JetBrains.Annotations;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
-using UnityEditor.SearchService;
 using UnityEngine;
+
 
 public class ButterflyBoids : MonoBehaviour
 {
@@ -34,7 +34,7 @@ public class ButterflyBoids : MonoBehaviour
             b.transform.parent = this.transform; // Keep hierarchy clean
             butterflies.Add(b.transform);
 
-            butterflyPrefab.GetComponent<Animator>().SetBool("Scene", true);
+           
             // Give each butterfly a unique random offset so they don't move identically
             randomOffsets.Add(Random.insideUnitSphere);
         }

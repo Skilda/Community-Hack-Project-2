@@ -2489,7 +2489,6 @@ GameObject:
   - component: {fileID: 1792000890}
   - component: {fileID: 1792000889}
   - component: {fileID: 1792000888}
-  - component: {fileID: 1792000892}
   - component: {fileID: 1792000893}
   m_Layer: 0
   m_Name: Cube
@@ -2581,30 +2580,12 @@ Transform:
   m_GameObject: {fileID: 1792000887}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.62, y: 0.10730988, z: 0.11}
+  m_LocalPosition: {x: 2.62, y: 1.24, z: 0.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1792000892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1792000887}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3754fabf49d6ee34a83f45bea0566920, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  butterflyPrefab: {fileID: 4883096864596923839, guid: 38251972cf517df4ba377f8434800316, type: 3}
-  butterflyCount: 20
-  swarmRadius: 2
-  rotationSpeed: 30
-  scatterSpeed: 5
-  centerTarget: {fileID: 1792000891}
 --- !u!114 &1792000893
 MonoBehaviour:
   m_ObjectHideFlags: 0
