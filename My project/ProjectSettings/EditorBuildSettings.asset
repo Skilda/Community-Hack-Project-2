@@ -8,12 +8,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/AIDA.unity
     guid: b056d9c1efd046d4f8bbc8a4e4ce0bcc
   - enabled: 0
     path: Assets/TEST SCENE.unity
     guid: 3d98d41a923dd9a449041ab4bb86baa6
+  - enabled: 1
+    path: Assets/Butterfly_Project.unity
+    guid: 68929460887dee64cadb5646a28dc713
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: e9fe4db65d08ce943bb9cd7532acb316, type: 2}
