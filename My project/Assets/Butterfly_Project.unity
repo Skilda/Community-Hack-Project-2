@@ -1051,7 +1051,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.322, y: 3.044553, z: -1.912}
-  m_LocalScale: {x: 0.25754, y: 0.25754, z: 0.25754}
+  m_LocalScale: {x: 0.16876338, y: 0.16876338, z: 0.16876338}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2609,7 +2609,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1792000887}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2664,7 +2664,7 @@ Transform:
   m_GameObject: {fileID: 1792000887}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.35, z: -0.54}
+  m_LocalPosition: {x: 0, y: 3.54, z: -0.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2690,6 +2690,7 @@ MonoBehaviour:
   centerTarget: {fileID: 1792000891}
   r_handMeshNode: {fileID: 1156598626}
   l_handMeshNode: {fileID: 1619330123}
+  butterfliesList: []
 --- !u!65 &1792000894
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2723,8 +2724,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97d0314508c79f74b87533458261406c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  butterflyPrefab: {fileID: 493153471}
   r_handMeshNode: {fileID: 1156598626}
+  butterflyBoids: {fileID: 1792000893}
 --- !u!1 &1824396248
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,7 +21,7 @@ public class ButterflyBoids : MonoBehaviour
     public Transform r_handMeshNode;
     public Transform l_handMeshNode;
 
-    private List<Transform> butterflies = new List<Transform>();
+    public  List<Transform> butterfliesList = new List<Transform>();
     private List<Vector3> randomOffsets = new List<Vector3>();
     private bool isScattering = false;
 
@@ -34,7 +34,7 @@ public class ButterflyBoids : MonoBehaviour
             Vector3 randomPos = Random.insideUnitSphere * swarmRadius;
             GameObject b = Instantiate(butterflyPrefab, transform.position + randomPos, Quaternion.identity);
             b.transform.parent = this.transform; // Keep hierarchy clean
-            butterflies.Add(b.transform);
+            butterfliesList.Add(b.transform);
 
             b.GetComponent<Animator>().SetBool("PlayFly",true);
             // Give each butterfly a unique random offset so they don't move identically
@@ -57,9 +57,9 @@ public class ButterflyBoids : MonoBehaviour
         }
 
         // 2. Update individual butterfly movements
-        for (int i = 0; i < butterflies.Count; i++)
+        for (int i = 0; i < butterfliesList.Count; i++)
         {
-            Transform b = butterflies[i];
+            Transform b = butterfliesList[i];
 
             // Store the position BEFORE we move it this frame
             Vector3 previousPosition = b.position;
