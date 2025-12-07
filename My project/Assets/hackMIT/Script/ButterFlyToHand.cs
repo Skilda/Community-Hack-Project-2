@@ -80,6 +80,11 @@ public class ButterFlyToHand : MonoBehaviour
             RemoveButterfly();
         }
 
+        if(isFinishedPlaying && targetButterfly.activeInHierarchy == false) 
+        { 
+            targetButterfly.SetActive(true);
+        }
+
     }
 
     // Called once when the pointing gesture is detected
