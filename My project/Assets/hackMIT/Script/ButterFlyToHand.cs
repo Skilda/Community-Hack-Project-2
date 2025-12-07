@@ -42,6 +42,7 @@ public class ButterFlyToHand : MonoBehaviour
     private bool isAudioFinish = false;
     private bool isFinishedPlaying;
     private bool wasPlaying;
+    private bool audioplaying;
 
     void Start()
     {
@@ -110,7 +111,7 @@ public class ButterFlyToHand : MonoBehaviour
             isAttracting = false;
             Debug.Log("Butterfly arrived at hand.");
             // Optional: Parent the butterfly to the hand joint when it arrives (to hold it)
-            targetButterfly.transform.SetParent(handDestination);
+            //targetButterfly.transform.SetParent(handDestination);
             isOnPlayerHand = true;
         }
     }
@@ -118,8 +119,9 @@ public class ButterFlyToHand : MonoBehaviour
     private void PlayAudio()
     {
 
-        if (!AudioSource_scene.isPlaying)
+        if (!audioplaying)
         {
+            audioplaying = true;
             AudioSource_scene.clip = selectedAudioClip;
 
             AudioSource_scene.Play();
@@ -147,6 +149,7 @@ public class ButterFlyToHand : MonoBehaviour
         if (isFinishedPlaying)
         {
             isAudioFinish = true;
+            audioplaying= false;
         }
 
     }
