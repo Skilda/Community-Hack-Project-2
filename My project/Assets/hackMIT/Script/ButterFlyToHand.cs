@@ -136,7 +136,7 @@ public class ButterFlyToHand : MonoBehaviour
             Debug.Log("AudioClip terminé ! isFinishedPlaying est maintenant VRAI.");
 
             // Vous pouvez ajouter ici l'appel à une autre fonction si nécessaire
-            // CallFunctionOnFinish(); 
+            // CallFunctionOnFinish();
         }
         else if (AudioSource_scene.isPlaying)
         {
