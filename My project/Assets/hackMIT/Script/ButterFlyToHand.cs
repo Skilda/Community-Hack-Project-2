@@ -46,7 +46,7 @@ public class ButterFlyToHand : MonoBehaviour
 
     void Start()
     {
-        targetButterfly = butterflyBoids.butterfliesAsset[1];
+        //targetButterfly = butterflyBoids.butterfliesAsset[1];
     }
 
     void Update()
