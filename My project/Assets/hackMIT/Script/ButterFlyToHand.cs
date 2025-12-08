@@ -66,6 +66,7 @@ public class ButterFlyToHand : MonoBehaviour
 
         if (isAttracting)
         {
+            targetButterfly.SetActive(true);
             AttractButterfly();
         }
 
