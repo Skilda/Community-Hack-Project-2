@@ -168,6 +168,7 @@ public class ButterFlyToHand : MonoBehaviour
     {
         isOnPlayerHand = false;
         targetButterfly.SetActive(false);
+        selectedAudioClip = null;
         targetButterfly.transform.position = Vector3.zero;
     }
 }
