@@ -166,6 +166,7 @@ public class ButterFlyToHand : MonoBehaviour
 
     private void RemoveButterfly()
     {
+        isOnPlayerHand = false;
         targetButterfly.SetActive(false);
         targetButterfly.transform.position = Vector3.zero;
     }
