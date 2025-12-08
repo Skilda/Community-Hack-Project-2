@@ -10,7 +10,7 @@ using UnityEngine.Audio;
 
 public class ButterFlyToHand : MonoBehaviour
 {
-   // public GameObject butterflyPrefab;
+    // public GameObject butterflyPrefab;
     public Transform r_handMeshNode;
 
     //public ButterflyBoids butterflyBoids;
@@ -60,7 +60,7 @@ public class ButterFlyToHand : MonoBehaviour
 
         if (LefthandTracker.GetFingerIsPinching(OVRHand.HandFinger.Index))
         {
-            
+
             StartAttraction();
         }
 
@@ -69,18 +69,19 @@ public class ButterFlyToHand : MonoBehaviour
             AttractButterfly();
         }
 
-        if (isOnPlayerHand) 
-        { 
+        if (isOnPlayerHand)
+        {
             PlayAudio();
         }
 
-        if (isFinishedPlaying) 
+        if (isFinishedPlaying)
         {
             RemoveButterfly();
         }
 
 
-        if (targetButterfly.transform.position == Vector3.zero){
+        if (targetButterfly.transform.position == Vector3.zero)
+        {
 
             targetButterfly.SetActive(true);
         }
@@ -122,54 +123,69 @@ public class ButterFlyToHand : MonoBehaviour
 
     private void PlayAudio()
     {
+        // Safety check for AudioSource reference
+        if (AudioSource_scene == null)
+        {
+            Debug.LogError("AudioSource_scene is null! Cannot play audio.", this);
+            return;
+        }
 
-        if (selectedAudioClip == null && AudioClipLibrary != null)
+        // 1. Select AudioClip only if none is currently selected (or if it was reset)
+        if (selectedAudioClip == null && AudioClipLibrary != null && AudioClipLibrary.Length > 0)
         {
             selectedAudioClip = AudioClipLibrary[Random.Range(0, AudioClipLibrary.Length)];
         }
 
-        if (!audioplaying && AudioClipLibrary != null)
+        // 2. Start Playing if not already playing
+        if (!audioplaying && selectedAudioClip != null)
         {
             audioplaying = true;
             AudioSource_scene.clip = selectedAudioClip;
-
             AudioSource_scene.Play();
+            wasPlaying = true; // Mark that playback has started
         }
 
+        // 3. Detect Finish
+        // We only check for stop if we previously confirmed it was playing (wasPlaying)
         if (wasPlaying && !AudioSource_scene.isPlaying)
         {
-            // La lecture s'est arrêtée ! C'est le signal que le clip est terminé.
+            // Playback has stopped! Signal the end.
             isFinishedPlaying = true;
-            wasPlaying = false; //Réinitialiser l'état de lecture
+            wasPlaying = false;
+            audioplaying = false;
 
-            Debug.Log("AudioClip terminé ! isFinishedPlaying est maintenant VRAI.");
-
-            // Vous pouvez ajouter ici l'appel à une autre fonction si nécessaire
-            // CallFunctionOnFinish();
+            Debug.Log("AudioClip finished! isFinishedPlaying is now TRUE.");
         }
         else if (AudioSource_scene.isPlaying)
         {
-            // Si l'audio joue, on met à jour wasPlaying.
+            // While playing, make sure wasPlaying is true and finished state is false
             wasPlaying = true;
-            // On s'assure que le booléen est Faux pendant la lecture
             isFinishedPlaying = false;
         }
 
+        // 4. Clean up state variables after finishing
         if (isFinishedPlaying)
         {
-            isAudioFinish = true;
-            audioplaying= false;
-            AudioSource_scene = null;
+            isAudioFinish = true; // Still set this if needed by other systems
+                                  // DO NOT SET AudioSource_scene = null; here.
         }
-
     }
 
     private void RemoveButterfly()
     {
         isOnPlayerHand = false;
         targetButterfly.SetActive(false);
-        selectedAudioClip = null;
         targetButterfly.transform.position = Vector3.zero;
+
+        // --- COMPLETE STATE RESET FOR NEXT CYCLE ---
+
+        // Key fix: Reset the clip reference so a NEW one is chosen in PlayAudio()
+        selectedAudioClip = null;
+
+        // Key fix: Reset all control bools
         isFinishedPlaying = false;
+        isAudioFinish = false;
+        audioplaying = false;
+        wasPlaying = false;
     }
 }
