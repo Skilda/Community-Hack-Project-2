@@ -170,5 +170,6 @@ public class ButterFlyToHand : MonoBehaviour
         targetButterfly.SetActive(false);
         selectedAudioClip = null;
         targetButterfly.transform.position = Vector3.zero;
+        isFinishedPlaying = false;
     }
 }
