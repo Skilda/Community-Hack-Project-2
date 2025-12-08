@@ -3135,18 +3135,13 @@ Transform:
   m_GameObject: {fileID: 1576597796}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0584, y: -0.0421, z: 0}
+  m_LocalPosition: {x: 0.1736, y: -0.0421, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1837019325}
   m_Father: {fileID: 1070430287}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1619330123 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1383216249135912793, guid: 0a7d2469f24041c4284c66706f84c45e, type: 3}
-  m_PrefabInstance: {fileID: 758765451}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1709037787
 GameObject:
   m_ObjectHideFlags: 0
@@ -3388,16 +3383,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f79f20e3dae67864c890508808f19323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  butterflyPrefab: {fileID: 4883096864596923839, guid: 38251972cf517df4ba377f8434800316, type: 3}
-  butterflyCount: 58
-  swarmRadius: 2.72
-  rotationSpeed: 5.1
-  scatterSpeed: 6.48
-  centerTarget: {fileID: 1792000891}
-  r_handMeshNode: {fileID: 1156598626}
-  l_handMeshNode: {fileID: 1619330123}
-  butterfliesList: []
-  butterfliesAsset: []
+  boidPrefab: {fileID: 4883096864596923839, guid: 38251972cf517df4ba377f8434800316, type: 3}
+  minSize: 0.035
+  maxSize: 0.05
+  centerPoint: {fileID: 1792000891}
+  numberOfBoids: 50
+  spawnRadius: 0.27
+  moveSpeed: 0.68
+  rotationSpeed: 0.41
+  centerForceRadius: 1.26
+  centerForce: 0.99
+  randomDirectionFrequency: 1.63
+  randomForceMagnitude: 1.54
 --- !u!65 &1792000894
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3432,7 +3429,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   r_handMeshNode: {fileID: 1576597797}
-  butterflyBoids: {fileID: 1792000893}
   targetButterfly: {fileID: 1068719320}
   handDestination: {fileID: 1576597797}
   lerpSpeed: 5

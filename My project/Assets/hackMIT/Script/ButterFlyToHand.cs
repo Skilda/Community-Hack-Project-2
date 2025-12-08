@@ -13,7 +13,7 @@ public class ButterFlyToHand : MonoBehaviour
    // public GameObject butterflyPrefab;
     public Transform r_handMeshNode;
 
-    public ButterflyBoids butterflyBoids;
+    //public ButterflyBoids butterflyBoids;
 
     // Update is called once per frame
     [Header("Target & Speed")]
