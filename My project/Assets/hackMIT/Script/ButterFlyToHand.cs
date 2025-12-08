@@ -66,7 +66,6 @@ public class ButterFlyToHand : MonoBehaviour
 
         if (isAttracting)
         {
-            targetButterfly.SetActive(true);
             AttractButterfly();
         }
 
@@ -157,7 +156,7 @@ public class ButterFlyToHand : MonoBehaviour
 
     private void RemoveButterfly()
     {
-        targetButterfly.SetActive(false);
+        //targetButterfly.SetActive(false);
         targetButterfly.transform.position = Vector3.zero;
     }
 }
