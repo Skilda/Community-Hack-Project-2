@@ -79,6 +79,11 @@ public class ButterFlyToHand : MonoBehaviour
             RemoveButterfly();
         }
 
+
+        if (targetButterfly.transform.position == Vector3.zero){
+
+            targetButterfly.SetActive(true);
+        }
     }
 
     // Called once when the pointing gesture is detected
