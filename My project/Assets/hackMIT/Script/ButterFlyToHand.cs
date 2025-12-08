@@ -118,7 +118,12 @@ public class ButterFlyToHand : MonoBehaviour
     private void PlayAudio()
     {
 
-        if (!audioplaying)
+        if (selectedAudioClip == null && AudioClipLibrary != null)
+        {
+            selectedAudioClip = AudioClipLibrary[Random.Range(0, AudioClipLibrary.Length)];
+        }
+
+        if (!audioplaying && AudioClipLibrary != null)
         {
             audioplaying = true;
             AudioSource_scene.clip = selectedAudioClip;
@@ -156,7 +161,7 @@ public class ButterFlyToHand : MonoBehaviour
 
     private void RemoveButterfly()
     {
-        //targetButterfly.SetActive(false);
+        targetButterfly.SetActive(false);
         targetButterfly.transform.position = Vector3.zero;
     }
 }

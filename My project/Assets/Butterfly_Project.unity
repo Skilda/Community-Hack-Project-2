@@ -3439,8 +3439,12 @@ MonoBehaviour:
   lerpSpeed: 5
   LefthandTracker: {fileID: 969393617}
   AudioSource_scene: {fileID: 1837019326}
-  selectedAudioClip: {fileID: 8300000, guid: 17f2bf9f867fe47419c914b0b127215f, type: 3}
-  AudioClipLibrary: []
+  selectedAudioClip: {fileID: 0}
+  AudioClipLibrary:
+  - {fileID: 8300000, guid: 17f2bf9f867fe47419c914b0b127215f, type: 3}
+  - {fileID: 8300000, guid: 1a1e7171b39bb2b44b4d46af72d6f746, type: 3}
+  - {fileID: 8300000, guid: 26a1916a71e2ff648a58db32dace9ebe, type: 3}
+  - {fileID: 8300000, guid: 0ef5963770bbfb34ba504840694c5460, type: 3}
 --- !u!1 &1824396248
 GameObject:
   m_ObjectHideFlags: 0
