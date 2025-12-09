@@ -33,7 +33,12 @@ public class ButterFlyToHand : MonoBehaviour
     [Header("Audio")]
     public AudioSource AudioSource_scene;
     public AudioClip selectedAudioClip;
+    public AudioClip LastAudioClipPlayed;
     public AudioClip[] AudioClipLibrary;
+
+    [Header("VFX")]
+    public ParticleSystem pinchParticle;
+    public ParticleSystem RemoveParticle;
 
     // --- Private State Variables ---
     private bool isPointing = false;
@@ -47,6 +52,7 @@ public class ButterFlyToHand : MonoBehaviour
     void Start()
     {
         //targetButterfly = butterflyBoids.butterfliesAsset[1];
+        pinchParticle.Stop();
     }
 
     void Update()
@@ -62,6 +68,11 @@ public class ButterFlyToHand : MonoBehaviour
         {
 
             StartAttraction();
+            pinchParticle.Play();
+        }
+        else
+        {
+            pinchParticle.Stop();
         }
 
         if (isAttracting)
@@ -79,6 +90,10 @@ public class ButterFlyToHand : MonoBehaviour
             RemoveButterfly();
         }
 
+        if (RemoveParticle.isEmitting == false)
+        {
+            RemoveParticle.Stop();
+        }
 
         if (targetButterfly.transform.position == Vector3.zero)
         {
@@ -131,7 +146,7 @@ public class ButterFlyToHand : MonoBehaviour
         }
 
         // 1. Select AudioClip only if none is currently selected (or if it was reset)
-        if (selectedAudioClip == null && AudioClipLibrary != null && AudioClipLibrary.Length > 0)
+        if (selectedAudioClip == null && AudioClipLibrary != null)
         {
             selectedAudioClip = AudioClipLibrary[Random.Range(0, AudioClipLibrary.Length)];
         }
@@ -173,6 +188,11 @@ public class ButterFlyToHand : MonoBehaviour
 
     private void RemoveButterfly()
     {
+        RemoveParticle.Play();
+
+        
+
+
         isOnPlayerHand = false;
         targetButterfly.SetActive(false);
         targetButterfly.transform.position = Vector3.zero;
